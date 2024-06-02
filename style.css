@@ -55,7 +55,7 @@ body {
 
 .play {
     position: absolute;
-    display: none;
+    visibility: hidden;
 
     font-size: 30px;
     color: darkgreen;

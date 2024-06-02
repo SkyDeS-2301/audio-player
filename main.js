@@ -71,42 +71,70 @@ const musicData = [
 	},
 ];
 
-const list = document.querySelector('.list');
+const list = document.querySelector( '.list' );
+
 fillList()
+const listItems = list.querySelectorAll('.list-item');
+
 function fillList() {
 	const activeDataMusic = [];
 
-	musicData.forEach(m => {
+	musicData.forEach( m => {
 		const musicEl = `<li class='list-item'>
 								                <div class='list-item-inner'>
 								                    <button class='play'>&gt;</button>
-								                    <div class='counter'>${m.id}</div>
-								                    <img src=${m.images} alt=${m.title} class='item-img'>
-								                    <p class='item-title'>${m.title}</p>
-								                    <div class='item-duration'>${m.duration}</div>
+								                    <div class='counter'>${ m.id }</div>
+								                    <img src=${ m.images } alt=${ m.title } class='item-img'>
+								                    <p class='item-title'>${ m.title }</p>
+								                    <div class='item-duration'>${ m.duration }</div>
 								                </div>
-								                <audio class='item-audio' src=${m.path} controls></audio>
+								                <audio class='item-audio' src=${ m.path }></audio>
 								            </li>`
-		activeDataMusic.push(musicEl)
+		activeDataMusic.push( musicEl )
 
+	} )
+	list.innerHTML = activeDataMusic.join( '' )
+}
+
+list.addEventListener( 'click', handleAction )
+list.addEventListener( 'dblclick', handleStop )
+
+function handleAction( e ) {
+	if (e.target.classList.contains('play')) {
+		listItems.forEach(item => {
+			const audio = item.querySelector('.item-audio')
+			audio.pause()
+		})
+		e.target.closest('.list-item').querySelector('.item-audio').play()
+	}
+}
+function handleStop() {
+	listItems.forEach(item => {
+		const audio = item.querySelector('.item-audio')
+		audio.pause()
 	})
-	list.innerHTML = activeDataMusic.join('')
 }
 
-list.addEventListener('click', handleAction)
+list.addEventListener( 'mouseover', handleHover )
 
-function handleAction(e) {
-
+function handleHover( e ) {
+	if ( e.target.classList.contains('list-item') ) {
+		const hiddenPlay = e.target.querySelector('.play')
+		if (hiddenPlay) {
+			hiddenPlay.style.visibility = 'visible'
+			e.target.querySelector('.counter').style.visibility = 'hidden'
+		}
+	}
 }
 
-list.addEventListener('mouseover', handleHover)
+list.addEventListener( 'mouseleave', handleHoverOut )
 
-function handleHover(e) {
-	console.log(1)
-
-}list.addEventListener('mouseleave', handleHoverOut)
-
-function handleHoverOut(e) {
-	console.log(2)
+function handleHoverOut() {
+	listItems.forEach(item => {
+		const hiddenPlay = item.querySelector('.play')
+		if (hiddenPlay) {
+			hiddenPlay.style.visibility = 'hidden'
+			item.querySelector('.counter').style.visibility = 'visible'
+		}
+	})
 }
-
