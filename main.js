@@ -106,8 +106,11 @@ function handleAction( e ) {
 		listItems.forEach(item => {
 			const audio = item.querySelector('.item-audio')
 			audio.pause()
+			item.classList.remove('list-item-active')
 		})
-		e.target.closest('.list-item').querySelector('.item-audio').play()
+		const audio = e.target.closest('.list-item').querySelector('.item-audio')
+		audio.play()
+		e.target.closest('.list-item').classList.add('list-item-active')
 	}
 }
 function handleStop() {

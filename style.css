@@ -36,6 +36,9 @@ body {
     border-bottom: 2px solid darkgreen;
     padding: 15px;
 }
+.list-item-active {
+    background: darkgreen;
+}
 .list-item-inner {
     position: relative;
 
