@@ -75,7 +75,9 @@ const list = document.querySelector( '.list' );
 
 fillList()
 const listItems = list.querySelectorAll('.list-item');
-
+listItems.forEach(item => {
+	item.querySelector('.item-audio').volume = 0.3;
+})
 function fillList() {
 	const activeDataMusic = [];
 
